@@ -4,13 +4,15 @@
 
 ## Get block by block height index
 
-![image-20211116083645684](C:\Users\litad\Documents\Udacity\project_1_v2_boilerplate\img\image-20211116083645684.png)
+![image-20211116083645684.png](https://github.com/littbarskiadeh/private-blockchain/blob/main/img/image-20211116083645684.png))
 
 
 
 ## Request validation message
 
-![image-20211116083724910](C:\Users\litad\Documents\Udacity\project_1_v2_boilerplate\img\image-20211116083724910.png)
+![image-20211116083724910](https://github.com/littbarskiadeh/private-blockchain/blob/main/img/image-20211116083724910.png)
+
+
 
 
 
@@ -20,8 +22,8 @@
 
 ## Submit star
 
-![image-20211116083806023](C:\Users\litad\Documents\Udacity\project_1_v2_boilerplate\img\image-20211116083806023.png)
+![image-20211116083806023](https://github.com/littbarskiadeh/private-blockchain/blob/main/img/image-20211116083806023.png)
 
 ## Retrieve star by address
 
-![image-20211116083823100](C:\Users\litad\Documents\Udacity\project_1_v2_boilerplate\img\image-20211116083823100.png)
+![image-20211116083823100](https://github.com/littbarskiadeh/private-blockchain/blob/main/img/image-20211116083823100.png)
