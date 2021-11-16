@@ -64,13 +64,9 @@ class Blockchain {
      */
     _addBlock(block) {
         let self = this;
-        
         return new Promise(async (resolve, reject) => {
             let currentHeight = await self.getChainHeight()
-            console.log('chain height: ' + currentHeight)
             try {
-                
-                console.log('chain height in: ' + currentHeight)
                 if (currentHeight > 0) {
                     const prevBlock = await this.getBlockByHeight(this.height);
                     block.previousBlockHash = prevBlock.hash;
@@ -80,7 +76,7 @@ class Blockchain {
                 block.time = new Date().getTime().toString().slice(0, -3);
                 self.chain.push(block);
                 self.height ++;
-                console.log(`addBlock ${block.height} ${block.hash}`)
+                // console.log(`addBlock ${block.height} ${block.hash}`)
                 resolve(block);
             } catch {
                 reject(Error)
@@ -188,7 +184,6 @@ class Blockchain {
                 self.chain.forEach(async(block) => {
                     let blockData = await block.getBData();
                     // let blockData = block.getBData();
-                    console.log('blockData >>> ' + blockData)
                     if ( blockData) {
                         if(blockData.owner === address ) stars.push(blockData)
                     }     
