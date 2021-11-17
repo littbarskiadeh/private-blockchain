@@ -67,7 +67,7 @@ class Blockchain {
         return new Promise(async (resolve, reject) => {
             // let currentHeight = await self.getChainHeight()
             try {
-                if (self.height  >= 0) {
+                if (self.height >= 0) {
                     const prevBlock = await this.getBlockByHeight(this.height);
                     // console.log(`Inside _addBlock - prevBlock > \n${JSON.stringify(prevBlock)}`)
                     block.previousBlockHash = prevBlock.hash;
@@ -75,9 +75,13 @@ class Blockchain {
                 block.hash = SHA256(JSON.stringify(block)).toString();
                 block.height = self.height + 1;
                 block.time = new Date().getTime().toString().slice(0, -3);
-                self.validateChain();
+                // await self.validateChain();
+                let errorLogs = await self.validateChain();
+                if (errorLogs.length) {
+                    resolve('These blocks are modified:', errorLogs);
+                }
                 self.chain.push(block);
-                self.height ++;
+                self.height++;
                 // console.log(`addBlock ${block.height} ${block.hash}`)
                 console.log(`chain \n${JSON.stringify(self.chain)}`)
                 resolve(block);
@@ -156,7 +160,7 @@ class Blockchain {
         return new Promise((resolve, reject) => {
             try {
                 const result = this.chain.find(block => hash === block.hash);
-                 resolve(result)
+                resolve(result)
             } catch (error) {
                 reject(new Error(error))
             }
@@ -188,17 +192,17 @@ class Blockchain {
         return new Promise(async (resolve, reject) => {
             try {
                 // filter chain 
-                self.chain.forEach(async(block) => {
+                self.chain.forEach(async (block) => {
                     let blockData = await block.getBData();
                     // let blockData = block.getBData();
-                    if ( blockData) {
-                        if(blockData.owner === address ) stars.push(blockData)
-                    }     
+                    if (blockData) {
+                        if (blockData.owner === address) stars.push(blockData)
+                    }
                     resolve(stars)
                 });
             }
             catch (error) {
-                reject (new Error(error))
+                reject(new Error(error))
             }
         });
     }
@@ -216,21 +220,16 @@ class Blockchain {
             for (const block of self.chain) {
                 console.log('block ' + JSON.stringify(block))
 
-                const isValidBlock  = await block.validateBlock();
+                const isValidBlock = await block.validateBlock();
                 console.log('valid?  ' + isValidBlock)
 
                 let previousBlockIndex = self.chain.length - 1;
                 const isValidHash = block.previousBlockHash == self.chain[previousBlockIndex].hash;
 
-                if (!isValidBlock || !isValidHash) 
-                    errorLog.push({ error: `Block validation failed`, block:block})
-              }
-              resolve(errorLog)
-            // self.chain.forEach( async block => {
-            //     const  isValidBlock  = await block.validate();
-            //     if (!isValidBlock) errorLog.push({ error: `Block validation failed`})
-            //     resolve(errorLog)
-            // });
+                if (!isValidBlock || !isValidHash)
+                    errorLog.push({ error: `Block validation failed`, block: block })
+            }
+            resolve(errorLog)
         });
     }
 }

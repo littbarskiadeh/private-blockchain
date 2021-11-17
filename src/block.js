@@ -43,19 +43,9 @@ class Block {
             // Comparing if the hashes changed
             // Returning the Block is not valid
             // Returning the Block is valid
-            const currentHash = self.hash;
-
-            // reset to default field values for new block
-            self.hash = null; 
-            self.time = 0;
-            // console.log('currentHash ' + currentHash)
-            
-            let newHash = SHA256(JSON.stringify(self)).toString();
-            // console.log('new self ' + JSON.stringify(self))
-
+            const currentHash = self.hash;            
+            let newHash = SHA256(JSON.stringify({...self, hash:null})).toString();
             self.hash = currentHash;
-            // console.log('newHash ' + newHash)
-
             try {
                 currentHash === newHash ? resolve(true) : resolve(false)
             }
